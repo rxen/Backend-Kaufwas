@@ -38,9 +38,9 @@ app.listen(3000, () =>{
 
 
 
-app.get('/', (req,res) => {
-    res.json('Server Ready');
-});
+// app.get('/', (req,res) => {
+//     res.json('Server Ready');
+// });
 
 
 
@@ -60,8 +60,11 @@ app.get('/products/:type', (req,res)=>
 
     connection.connect((err)=>{
         
-        if(err) 
-            {throw err;}   
+        if(!err)
+        console.log('Connection Established Successfully');
+        else
+        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+          
             //? ist Platzhalter, [ req.params.type ] befühlt ? 
             //durch Platzhalter werden SQL injection Angriffe verhindert
              
@@ -92,8 +95,10 @@ app.get('/products', (req,res)=>
 
     connection.connect((err)=>{
         
-        if(err) 
-            {throw err;}   
+        if(!err)
+        console.log('Connection Established Successfully');
+        else
+        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
             //? ist Platzhalter, [ req.params.type ] befühlt ? 
             //durch Platzhalter werden SQL injection Angriffe verhindert
              
@@ -111,51 +116,51 @@ app.get('/products', (req,res)=>
    
 });
 
-app.get('/bestellung', (req,res)=>
-{
-
-    res.send('fuckq')
-
-});
-
-// app.post('/bestellung',(req,res)=>
+// app.get('/bestellung', (req,res)=>
 // {
 
+//     res.send('fuckq')
 
-//     var connection = mysql.createConnection({
-//         host     : 'remotemysql.com',
-//         user     : 'QEaqoXymWu',
-//         password: 'tT81u7BeH8',
-//         database : 'QEaqoXymWu'
-      
-//     });
-//     connection.connect((err)=>{
-
-
-//         if(err) 
-//             {throw err;}   
-//             //? ist Platzhalter, [ req.params.type ] befühlt ? 
-//             //durch Platzhalter werden SQL injection Angriffe verhindert
-            
-//             var values = [
-//                 ['John', 'abe road'],
-//                 ['fick', 'dich'],
-//                 ['du', 'scheiß'],
-//                 ['programm','!']
-//             ];
-
-//             connection.query('INSERT INTO test(name, adress) SET ?', [values], (err,res) => {
-//                 if(err) 
-//                     {throw err;}
-
-//                     console.log('scheiße')
-        
-//                                     //zugriff darauf(wie return)
-                                    
-//             });
-        
-//             connection.end();
-            
-//     });
-   
 // });
+
+app.post('/bestellung',(req,res)=>
+{
+
+
+    var connection = mysql.createConnection({
+        host     : 'remotemysql.com',
+        user     : 'QEaqoXymWu',
+        password: 'tT81u7BeH8',
+        database : 'QEaqoXymWu'
+      
+    });
+    connection.connect((err)=>{
+
+
+        if(!err)
+        console.log('Connection Established Successfully');
+        else
+        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+            
+            var values = [
+                ['John', 'abe road'],
+                ['fick', 'dich'],
+                ['du', 'scheiß'],
+                ['programm','!']
+            ];
+
+            connection.query('INSERT INTO test(name, adress) SET ?', [values], (err,res) => {
+                if(err) 
+                    {throw err;}
+
+                    console.log('scheiße')
+        
+                                    //zugriff darauf(wie return)
+                                    
+            });
+        
+            connection.end();
+            
+    });
+   
+});
