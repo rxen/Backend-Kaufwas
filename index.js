@@ -10,9 +10,6 @@ const bodyParser = require('body-parser')
 const app = express();
 
 app.use(bodyParser.json())
-// app.route('/api/cats').post((req, res) => {
-//   res.send(201, req.body)
-// })
 
 var corsOptions = {
     origin: 'http://localhost:4200',
@@ -34,16 +31,6 @@ var mysql = require('mysql');
 app.listen(3000, () =>{
     console.log('Example app listening on port 3000!');
 });
-
-
-
-
-//app.get('/', (req,res) => {
- //  res.json('Server Ready');
-//});
-
-
-
 
 
 // // eingabe von URL, : ist platzhalter für verschiedene Ausprägungen von type
@@ -105,7 +92,6 @@ app.get('/products', (req,res)=>
             connection.query('Select * from items ', (err,result) => {
                 if(err) 
                     {throw err;}
-                console.log('hier wird get aufgerufen')
                 //zugriff darauf(wie return)
                 return res.json(result);
             });
@@ -116,24 +102,9 @@ app.get('/products', (req,res)=>
    
 });
 
-// app.get('/bestellung', (req,res)=>
-// {
-
-//     res.send('fuckq')
-
-// });
-
-//app.post('/bestellung', (req,res) => {
- //   res.json('Server Ready');
- //});
-
 
 app.post('/bestellung',(req,res)=>
-{
-    console.log('hi');
-    
-
-
+{ 
     var connection = mysql.createConnection({
         host     : 'remotemysql.com',
         user     : 'QEaqoXymWu',
@@ -150,14 +121,42 @@ app.post('/bestellung',(req,res)=>
 
             
             connection.query("INSERT INTO bestellung (vorname, nachname, straße, hausnummer, adresseoptional, plz, ort, land, emailadresse, geschlecht) VALUES ('"+ req.body.vorname +"', '" + req.body.nachname +"', '"+ req.body.straße +"', '"+ req.body.hausnummer +"', '"+ req.body.adresseoptional +"', '"+ req.body.plz +"', '"+ req.body.ort +"', '"+ req.body.land +"', '"+ req.body.emailadresse +"', '"+ req.body.geschlecht +"')", (err,res) => {
-                console.log('keine scheiße')
                 if(err) 
                     {throw err;}
-
-                    console.log('scheiße')
         
-                                    //zugriff darauf(wie return)
-                                    return res;
+                        //zugriff darauf(wie return)
+                        return res;
+            });
+        
+            connection.end();
+            
+    });
+   
+});
+
+app.post('/',(req,res)=>
+{
+    var connection = mysql.createConnection({
+        host     : 'remotemysql.com',
+        user     : 'QEaqoXymWu',
+        password: 'tT81u7BeH8',
+        database : 'QEaqoXymWu'
+      
+    });
+    connection.connect((err)=>{
+
+        if(!err)
+        console.log('Connection Established Successfully');
+        else
+        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+
+            
+            connection.query("INSERT INTO newsletter (email) VALUES ('"+ req.body.email +"')", (err,res) => {
+                if(err) 
+                    {throw err;}
+        
+                        //zugriff darauf(wie return)
+                        return res;
             });
         
             connection.end();
