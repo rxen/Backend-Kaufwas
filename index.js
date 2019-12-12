@@ -38,9 +38,9 @@ app.listen(3000, () =>{
 
 
 
-// app.get('/', (req,res) => {
-//     res.json('Server Ready');
-// });
+//app.get('/', (req,res) => {
+ //  res.json('Server Ready');
+//});
 
 
 
@@ -105,7 +105,7 @@ app.get('/products', (req,res)=>
             connection.query('Select * from items ', (err,result) => {
                 if(err) 
                     {throw err;}
-        
+                console.log('hier wird get aufgerufen')
                 //zugriff darauf(wie return)
                 return res.json(result);
             });
@@ -123,8 +123,15 @@ app.get('/products', (req,res)=>
 
 // });
 
+//app.post('/bestellung', (req,res) => {
+ //   res.json('Server Ready');
+ //});
+
+
 app.post('/bestellung',(req,res)=>
 {
+    console.log('hi');
+    
 
 
     var connection = mysql.createConnection({
@@ -136,27 +143,26 @@ app.post('/bestellung',(req,res)=>
     });
     connection.connect((err)=>{
 
-
         if(!err)
         console.log('Connection Established Successfully');
         else
         console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
             
-            var values = [
-                ['John', 'abe road'],
-                ['fick', 'dich'],
-                ['du', 'scheiß'],
-                ['programm','!']
-            ];
+           // var values =   [req.body.vorname, req.body.adress];
 
-            connection.query('INSERT INTO test(name, adress) SET ?', [values], (err,res) => {
+               // ['vorn', 'nachn', 'street', '23', 'adropt', '12345', 'schönerort', 'deutschland', 'John@test.com']
+            
+
+            connection.query("INSERT INTO test (vorname, adress) VALUES ('"+ req.body.vorname +"', '" + req.body.adress +"')", (err,res) => {
+            //("INSERT INTO test (vorname, nachname, straße, hausnummer, adresseoptional, plz, ort, land, emailadresse, geschlecht) VALUES ?", [values], (err,res) => {
+                console.log('keine scheiße')
                 if(err) 
                     {throw err;}
 
                     console.log('scheiße')
         
                                     //zugriff darauf(wie return)
-                                    
+                                    return res;
             });
         
             connection.end();
