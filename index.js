@@ -147,14 +147,9 @@ app.post('/bestellung',(req,res)=>
         console.log('Connection Established Successfully');
         else
         console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
-            
-           // var values =   [req.body.vorname, req.body.adress];
 
-               // ['vorn', 'nachn', 'street', '23', 'adropt', '12345', 'schönerort', 'deutschland', 'John@test.com']
             
-
-            connection.query("INSERT INTO test (vorname, adress) VALUES ('"+ req.body.vorname +"', '" + req.body.adress +"')", (err,res) => {
-            //("INSERT INTO test (vorname, nachname, straße, hausnummer, adresseoptional, plz, ort, land, emailadresse, geschlecht) VALUES ?", [values], (err,res) => {
+            connection.query("INSERT INTO bestellung (vorname, nachname, straße, hausnummer, adresseoptional, plz, ort, land, emailadresse, geschlecht) VALUES ('"+ req.body.vorname +"', '" + req.body.nachname +"', '"+ req.body.straße +"', '"+ req.body.hausnummer +"', '"+ req.body.adresseoptional +"', '"+ req.body.plz +"', '"+ req.body.ort +"', '"+ req.body.land +"', '"+ req.body.emailadresse +"', '"+ req.body.geschlecht +"')", (err,res) => {
                 console.log('keine scheiße')
                 if(err) 
                     {throw err;}
