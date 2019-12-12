@@ -164,3 +164,33 @@ app.post('/',(req,res)=>
     });
    
 });
+
+app.post('/order',(req,res)=>
+{
+    var connection = mysql.createConnection({
+        host     : 'remotemysql.com',
+        user     : 'QEaqoXymWu',
+        password: 'tT81u7BeH8',
+        database : 'QEaqoXymWu'
+      
+    });
+    connection.connect((err)=>{
+
+        if(!err)
+        console.log('Connection Established Successfully');
+        else
+        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+            
+            connection.query("INSERT INTO ORDERS (item_id, best_id) VALUES ('"+ req.body.item_id +"', '"+ req.body.best_id +"')", (err,res) => {
+                if(err) 
+                    {throw err;}
+        
+                        //zugriff darauf(wie return)
+                        return res;
+            });
+        
+            connection.end();
+            
+    });
+   
+});
